@@ -187,7 +187,7 @@ exports.verify = async (req, res) => {
         const token = generateToken(user._id);
         const userData = encodeURIComponent(JSON.stringify({ _id: user._id, name: user.name, email: user.email, role: user.role, token }));
         
-        res.redirect(`http://localhost:5173/verify-success?data=${userData}`);
+        res.redirect(`${req.protocol}://${req.get('host')}/verify-success?data=${userData}`);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
