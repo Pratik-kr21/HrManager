@@ -157,7 +157,9 @@ The platform handles the complete HR lifecycle: employee onboarding, daily atten
 
 ```
 HrManager/
-├── client/                          # React frontend (Vite)
+├── api/                             # Vercel Serverless Functions entry
+│   └── index.js                     # Exports Express app for Vercel
+├── client/                          # React frontend (Vite, in Root)
 │   ├── src/
 │   │   ├── components/
 │   │   │   ├── Header.jsx           # Sticky header with live clock & user pill
@@ -217,6 +219,7 @@ HrManager/
 │   └── package.json
 │
 ├── .env.example                     # Template for server environment vars
+├── vercel.json                      # Vercel deployment routing configuration
 └── README.md                        # This file
 ```
 
@@ -278,6 +281,27 @@ npm run dev
 ### 5. Open the App
 
 Navigate to **http://localhost:5173** in your browser.
+
+---
+
+## ☁️ Vercel Deployment
+
+OneClick is pre-configured for seamless deployment on Vercel as a single repository, leveraging zero-config builds for the frontend and Serverless Functions for the Express backend.
+
+1. **Push your code** to GitHub.
+2. In Vercel, click **Add New Project** and import the repository.
+3. **Framework Preset:** Vercel automatically detects **Vite**. Leave it as is.
+4. **Root Directory:** Leave as `./`.
+5. **Environment Variables (CRITICAL):**
+   Before clicking Deploy, copy all backend and frontend `.env` variables into the Vercel dashboard:
+   - `MONGO_URI`
+   - `JWT_SECRET`
+   - `GMAIL_USER`
+   - `GMAIL_PASS`
+   - `GOOGLE_CLIENT_ID`
+   - `VITE_GOOGLE_CLIENT_ID`
+   *(Do NOT set `PORT`, Vercel handles this dynamically)*
+6. Click **Deploy**. Vercel will install dependencies, build the React app, from the root, and route `/api/*` to the Serverless functions using `vercel.json`.
 
 ---
 
