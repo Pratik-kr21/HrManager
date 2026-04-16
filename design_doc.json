@@ -1,0 +1,228 @@
+{
+  "designSystem": {
+    "name": "Soft Glass Dashboard UI",
+    "style": {
+      "aesthetic": "soft-glassmorphism + minimal dashboard",
+      "tone": "clean, calm, modern, slightly neumorphic",
+      "density": "medium",
+      "borderRadius": "large",
+      "depth": "layered with subtle shadows and blur",
+      "colorTemperature": "cool with slight warm accents"
+    },
+
+    "colorPalette": {
+      "primary": "#3B82F6",
+      "secondary": "#60A5FA",
+      "accent": "#22C55E",
+      "danger": "#EF4444",
+      "warning": "#F59E0B",
+
+      "background": {
+        "base": "#EAF2FB",
+        "gradient": "linear-gradient(135deg, #dbeafe, #bfdbfe)"
+      },
+
+      "surface": {
+        "card": "rgba(255,255,255,0.6)",
+        "glass": "rgba(255,255,255,0.4)",
+        "hover": "rgba(255,255,255,0.75)"
+      },
+
+      "text": {
+        "primary": "#1E293B",
+        "secondary": "#64748B",
+        "muted": "#94A3B8",
+        "inverse": "#FFFFFF"
+      },
+
+      "border": "rgba(255,255,255,0.3)"
+    },
+
+    "typography": {
+      "fontFamily": "Inter, sans-serif",
+      "scale": {
+        "h1": { "size": "24px", "weight": 600 },
+        "h2": { "size": "20px", "weight": 600 },
+        "h3": { "size": "16px", "weight": 500 },
+        "body": { "size": "14px", "weight": 400 },
+        "caption": { "size": "12px", "weight": 400 }
+      },
+      "letterSpacing": "slightly tight",
+      "lineHeight": "1.4"
+    },
+
+    "layout": {
+      "structure": {
+        "type": "sidebar + topbar + content grid",
+        "sidebarWidth": "72px collapsed / 220px expanded",
+        "topbarHeight": "64px",
+        "contentPadding": "24px"
+      },
+
+      "grid": {
+        "columns": 12,
+        "gutter": "16px",
+        "cardSpan": {
+          "small": 3,
+          "medium": 6,
+          "large": 12
+        }
+      }
+    },
+
+    "effects": {
+      "glassmorphism": {
+        "backdropBlur": "12px",
+        "background": "rgba(255,255,255,0.5)",
+        "border": "1px solid rgba(255,255,255,0.3)"
+      },
+
+      "shadow": {
+        "soft": "0 4px 20px rgba(0,0,0,0.05)",
+        "medium": "0 8px 30px rgba(0,0,0,0.08)",
+        "hover": "0 10px 40px rgba(0,0,0,0.12)"
+      },
+
+      "transition": {
+        "default": "all 0.25s ease",
+        "fast": "all 0.15s ease"
+      }
+    },
+
+    "components": {
+      "sidebar": {
+        "style": "vertical glass panel",
+        "items": {
+          "iconOnly": true,
+          "hoverEffect": "background highlight + slight scale",
+          "activeState": "filled background + primary color"
+        }
+      },
+
+      "topbar": {
+        "elements": ["search", "profile", "actions"],
+        "style": "transparent with blur",
+        "alignment": "space-between"
+      },
+
+      "card": {
+        "style": "glass card",
+        "padding": "16px",
+        "radius": "16px",
+        "shadow": "soft",
+        "hover": {
+          "shadow": "hover",
+          "translateY": "-2px"
+        }
+      },
+
+      "statCard": {
+        "layout": "title + value + trend indicator",
+        "trend": {
+          "positiveColor": "#22C55E",
+          "negativeColor": "#EF4444"
+        }
+      },
+
+      "table": {
+        "style": "minimal",
+        "row": {
+          "hover": "background fade",
+          "border": "light divider"
+        },
+        "columns": {
+          "alignment": "left",
+          "spacing": "comfortable"
+        }
+      },
+
+      "badge": {
+        "types": {
+          "success": "#22C55E",
+          "warning": "#F59E0B",
+          "info": "#3B82F6"
+        },
+        "shape": "pill",
+        "padding": "4px 10px"
+      },
+
+      "avatar": {
+        "shape": "circle",
+        "size": ["24px", "32px", "40px"],
+        "fallback": "initials"
+      },
+
+      "buttons": {
+        "primary": {
+          "background": "#3B82F6",
+          "text": "#FFFFFF"
+        },
+        "secondary": {
+          "background": "rgba(255,255,255,0.5)",
+          "text": "#1E293B"
+        },
+        "ghost": {
+          "background": "transparent"
+        }
+      },
+
+      "input": {
+        "style": "rounded pill",
+        "background": "rgba(255,255,255,0.6)",
+        "border": "none",
+        "padding": "10px 14px"
+      }
+    },
+
+    "dataVisualization": {
+      "charts": {
+        "style": "minimal line charts",
+        "strokeWidth": 2,
+        "colors": ["#3B82F6", "#22C55E", "#EF4444"],
+        "grid": "hidden or very light",
+        "points": "hidden"
+      }
+    },
+
+    "interactionPatterns": {
+      "hover": {
+        "lift": true,
+        "brightnessIncrease": true
+      },
+      "active": {
+        "scale": "0.98"
+      },
+      "focus": {
+        "outline": "soft glow primary"
+      }
+    },
+
+    "spacing": {
+      "scale": [4, 8, 12, 16, 24, 32],
+      "usage": {
+        "cardPadding": 16,
+        "sectionGap": 24,
+        "gridGap": 16
+      }
+    },
+
+    "iconography": {
+      "style": "outlined + minimal",
+      "strokeWidth": 1.5,
+      "size": 20
+    },
+
+    "responsiveness": {
+      "breakpoints": {
+        "sm": "640px",
+        "md": "768px",
+        "lg": "1024px",
+        "xl": "1280px"
+      },
+      "behavior": {
+        "sidebar": "collapses on smaller screens",
+        "grid": "reduces columns progressively"
+      }
+    }
+  }
+}
