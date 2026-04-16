@@ -157,8 +157,6 @@ The platform handles the complete HR lifecycle: employee onboarding, daily atten
 
 ```
 HrManager/
-├── api/                             # Vercel Serverless Functions entry
-│   └── index.js                     # Exports Express app for Vercel
 ├── client/                          # React frontend (Vite, in Root)
 │   ├── src/
 │   │   ├── components/
