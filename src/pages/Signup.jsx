@@ -28,9 +28,9 @@ const Signup = () => {
     };
 
     return (
-        <div style={{ display:'flex', minHeight:'100vh' }}>
+        <div className="auth-split">
             {/* ── Left Panel ── */}
-            <div style={{ width:'38%', minWidth:'320px', background:'var(--forest)', display:'flex', flexDirection:'column', justifyContent:'space-between', padding:'48px 44px', position:'relative', overflow:'hidden' }}>
+            <div className="auth-brand-panel">
                 <div style={{ position:'absolute', top:'-60px', right:'-60px', width:'280px', height:'280px', borderRadius:'50%', background:'rgba(255,255,255,0.04)' }} />
                 <div style={{ position:'absolute', bottom:'-40px', left:'-40px', width:'200px', height:'200px', borderRadius:'50%', background:'rgba(245,158,11,0.07)' }} />
 
@@ -62,12 +62,22 @@ const Signup = () => {
             </div>
 
             {/* ── Right Panel ── */}
-            <div style={{ flex:1, background:'var(--cream)', display:'flex', alignItems:'center', justifyContent:'center', padding:'48px' }}>
+            <div className="auth-form-panel">
                 <div style={{ width:'100%', maxWidth:'400px' }}>
+                    {/* Mobile Logo Header */}
+                    <div className="auth-mobile-header">
+                        <div style={{ fontSize:'1.6rem', fontWeight:800, color:'var(--forest)', letterSpacing:'-0.03em' }}>
+                            OneClick<span style={{ color:'var(--amber)' }}>.</span>
+                        </div>
+                        <div style={{ fontSize:'0.75rem', color:'var(--stone-500)', marginTop:'2px', textTransform:'uppercase', letterSpacing:'0.06em', fontWeight:600 }}>
+                            HR Intelligence Platform
+                        </div>
+                    </div>
+
                     <h1 style={{ fontSize:'1.8rem', fontWeight:800, color:'var(--charcoal)', letterSpacing:'-0.03em', marginBottom:'6px' }}>
                         Create your account
                     </h1>
-                    <p style={{ fontSize:'0.88rem', color:'var(--stone-500)', marginBottom:'32px' }}>
+                    <p style={{ fontSize:'0.88rem', color:'var(--stone-500)', marginBottom:'28px' }}>
                         Get started with OneClick HR today.
                     </p>
 
@@ -92,7 +102,7 @@ const Signup = () => {
                             <label style={{ display:'block', fontSize:'0.75rem', fontWeight:700, color:'var(--stone-700)', marginBottom:'5px', textTransform:'uppercase', letterSpacing:'0.06em' }}>Set Password</label>
                             <div style={{ position:'relative' }}>
                                 <input type={showPw?'text':'password'} className="input" placeholder="Min. 6 characters" value={password} onChange={e=>setPassword(e.target.value)} required style={{ paddingRight:'44px' }} />
-                                <button type="button" onClick={()=>setShowPw(!showPw)} style={{ position:'absolute', right:'12px', top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', color:'var(--stone-500)', display:'flex', padding:'2px' }}>
+                                <button type="button" onClick={()=>setShowPw(!showPw)} style={{ position:'absolute', right:'12px', top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', color:'var(--stone-500)', display:'flex', padding:'2px' }} aria-label={showPw ? 'Hide password' : 'Show password'}>
                                     {showPw ? <EyeOff size={16}/> : <Eye size={16}/>}
                                 </button>
                             </div>
