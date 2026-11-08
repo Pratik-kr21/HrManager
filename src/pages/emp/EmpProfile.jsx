@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import api from '../../utils/api';
 import { User, Mail, Briefcase, Building2, Calendar } from 'lucide-react';
-import { format } from 'date-fns';
+import { format } from '../../utils/date';
 
 const EmpProfile = () => {
     const { user } = useContext(AuthContext);
@@ -48,7 +48,7 @@ const EmpProfile = () => {
                     </p>
                 </div>
             ) : (
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '20px' }}>
+                <div className="grid-profile">
                     {/* Left: Avatar Card */}
                     <div className="card" style={{ padding: '36px 24px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px' }}>
                         <div style={{ width: '90px', height: '90px', borderRadius: '50%', background: 'var(--forest)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', fontWeight: 800 }}>
