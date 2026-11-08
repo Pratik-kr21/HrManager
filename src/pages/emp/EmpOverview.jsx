@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { format } from 'date-fns';
+import { format } from '../../utils/date';
 import api from '../../utils/api';
 import { Play, Square, Clock, Calendar, CheckCircle, AlertCircle, TrendingUp } from 'lucide-react';
 
@@ -82,25 +82,25 @@ const EmpOverview = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
 
             {/* Welcome */}
-            <div style={{ background: 'var(--forest)', borderRadius: 'var(--r-xl)', padding: '28px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ background: 'var(--forest)', borderRadius: 'var(--r-xl)', padding: '24px 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
                 <div>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', marginBottom: '6px' }}>
+                    <h2 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', marginBottom: '6px' }}>
                         Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 17 ? 'afternoon' : 'evening'}, {user?.name?.split(' ')[0]}! 👋
                     </h2>
                     <p style={{ fontSize: '0.88rem', color: 'rgba(255,255,255,0.6)' }}>
                         {format(new Date(), 'EEEE, MMMM d, yyyy')} &nbsp;·&nbsp; {empProfile ? `${empProfile.role} · ${empProfile.department}` : 'Employee Portal'}
                     </p>
                 </div>
-                <div style={{ textAlign: 'right' }}>
+                <div>
                     <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>Today Status</div>
-                    <span style={{ background: todayRec?.status === 'Present' ? '#D1FAE5' : todayRec?.status === 'Late' ? '#FEF3C7' : '#FEE2E2', color: todayRec?.status === 'Present' ? '#166534' : todayRec?.status === 'Late' ? '#92400E' : todayRec ? '#991B1B' : 'rgba(255,255,255,0.5)', padding: '5px 14px', borderRadius: '99px', fontWeight: 700, fontSize: '0.82rem' }}>
+                    <span style={{ background: todayRec?.status === 'Present' ? '#D1FAE5' : todayRec?.status === 'Late' ? '#FEF3C7' : '#FEE2E2', color: todayRec?.status === 'Present' ? '#166534' : todayRec?.status === 'Late' ? '#92400E' : todayRec ? '#991B1B' : 'rgba(255,255,255,0.5)', padding: '5px 14px', borderRadius: '99px', fontWeight: 700, fontSize: '0.82rem', display: 'inline-block' }}>
                         {todayRec?.status || 'Not checked in'}
                     </span>
                 </div>
             </div>
 
             {/* KPI Row */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '14px' }}>
+            <div className="grid-kpi-4">
                 {[
                     { label: 'Present This Week', value: presentCount, icon: <CheckCircle size={20}/>, color: '#166534', bg: '#D1FAE5' },
                     { label: 'Late This Week',    value: lateCount,    icon: <Clock size={20}/>,       color: '#92400E', bg: '#FEF3C7' },
@@ -120,7 +120,7 @@ const EmpOverview = () => {
             </div>
 
             {/* Session + Week */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+            <div className="grid-split-2">
                 {/* Session Tracker */}
                 <div className="card" style={{ padding: '24px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '18px' }}>
@@ -134,7 +134,7 @@ const EmpOverview = () => {
                             {sessionActive ? '● Live' : '○ Idle'}
                         </span>
                     </div>
-                    <div style={{ fontSize: '3.2rem', fontWeight: 800, letterSpacing: '-0.05em', fontVariantNumeric: 'tabular-nums', color: sessionActive ? 'var(--forest)' : 'var(--charcoal)', lineHeight: 1, marginBottom: '20px' }}>
+                    <div style={{ fontSize: 'clamp(2.2rem, 7vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.05em', fontVariantNumeric: 'tabular-nums', color: sessionActive ? 'var(--forest)' : 'var(--charcoal)', lineHeight: 1, marginBottom: '20px' }}>
                         {fmtTime(secs)}
                     </div>
                     {sessionMsg && <div style={{ fontSize: '0.82rem', color: 'var(--success)', fontWeight: 600, marginBottom: '12px' }}>{sessionMsg}</div>}
@@ -189,7 +189,7 @@ const EmpOverview = () => {
                 {myLeaves.length === 0 ? (
                     <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', textAlign: 'center', padding: '20px 0' }}>No leave requests yet</p>
                 ) : (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '12px' }}>
                         {myLeaves.map(l => {
                             const days = Math.ceil((new Date(l.to) - new Date(l.from)) / 86400000) + 1;
                             const badgeClass = l.status === 'Approved' ? 'badge-success' : l.status === 'Rejected' ? 'badge-danger' : 'badge-warning';
