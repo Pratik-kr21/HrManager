@@ -39,16 +39,9 @@ const Login = () => {
     };
 
     return (
-        <div style={{ display: 'flex', minHeight: '100vh' }}>
-            {/* ── Left Panel ── */}
-            <div style={{
-                width: '42%', minWidth: '340px',
-                background: 'var(--forest)',
-                display: 'flex', flexDirection: 'column',
-                justifyContent: 'space-between',
-                padding: '48px 52px',
-                position: 'relative', overflow: 'hidden'
-            }}>
+        <div className="auth-split">
+            {/* ── Left Panel (Desktop/Tablet) ── */}
+            <div className="auth-brand-panel">
                 {/* Decorative circles */}
                 <div style={{ position:'absolute', top:'-80px', right:'-80px', width:'320px', height:'320px', borderRadius:'50%', background:'rgba(255,255,255,0.04)' }} />
                 <div style={{ position:'absolute', bottom:'-60px', left:'-60px', width:'240px', height:'240px', borderRadius:'50%', background:'rgba(255,255,255,0.04)' }} />
@@ -82,12 +75,22 @@ const Login = () => {
             </div>
 
             {/* ── Right Panel ── */}
-            <div style={{ flex:1, background:'var(--cream)', display:'flex', alignItems:'center', justifyContent:'center', padding:'48px' }}>
+            <div className="auth-form-panel">
                 <div style={{ width:'100%', maxWidth:'400px' }}>
+                    {/* Mobile Logo Header */}
+                    <div className="auth-mobile-header">
+                        <div style={{ fontSize:'1.6rem', fontWeight:800, color:'var(--forest)', letterSpacing:'-0.03em' }}>
+                            OneClick<span style={{ color:'var(--amber)' }}>.</span>
+                        </div>
+                        <div style={{ fontSize:'0.75rem', color:'var(--stone-500)', marginTop:'2px', textTransform:'uppercase', letterSpacing:'0.06em', fontWeight:600 }}>
+                            HR Intelligence Platform
+                        </div>
+                    </div>
+
                     <h1 style={{ fontSize:'1.8rem', fontWeight:800, color:'var(--charcoal)', letterSpacing:'-0.03em', marginBottom:'6px' }}>
                         Welcome back
                     </h1>
-                    <p style={{ fontSize:'0.88rem', color:'var(--stone-500)', marginBottom:'32px' }}>
+                    <p style={{ fontSize:'0.88rem', color:'var(--stone-500)', marginBottom:'28px' }}>
                         Enter your credentials to access your workspace.
                     </p>
 
@@ -117,7 +120,8 @@ const Login = () => {
                                     style={{ paddingRight:'44px' }}
                                 />
                                 <button type="button" onClick={() => setShowPw(!showPw)}
-                                    style={{ position:'absolute', right:'12px', top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', color:'var(--stone-500)', display:'flex', padding:'2px' }}>
+                                    style={{ position:'absolute', right:'12px', top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', color:'var(--stone-500)', display:'flex', padding:'2px' }}
+                                    aria-label={showPw ? 'Hide password' : 'Show password'}>
                                     {showPw ? <EyeOff size={16}/> : <Eye size={16}/>}
                                 </button>
                             </div>
