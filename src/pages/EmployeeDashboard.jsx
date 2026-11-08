@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import EmployeeSidebar from '../components/EmployeeSidebar';
 import Header from '../components/Header';
@@ -13,14 +13,19 @@ const pageTitles = {
 const EmployeeDashboard = () => {
     const location = useLocation();
     const pageTitle = pageTitles[location.pathname] || 'Employee Portal';
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    useEffect(() => {
+        setSidebarOpen(false);
+    }, [location.pathname]);
 
     return (
         <div style={{ display: 'flex', minHeight: '100vh', width: '100%' }}>
-            <EmployeeSidebar />
-            <div style={{ width: 'var(--sidebar-w)', flexShrink: 0 }} />
-            <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', background: 'var(--bg)', overflow: 'hidden' }}>
-                <Header pageTitle={pageTitle} />
-                <main style={{ flex: 1, padding: '28px', width: '100%', boxSizing: 'border-box', overflowY: 'auto' }}>
+            <EmployeeSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+            <div className="sidebar-spacer" style={{ width: 'var(--sidebar-w)', flexShrink: 0 }} />
+            <div className="main-content-layout">
+                <Header pageTitle={pageTitle} onToggleSidebar={() => setSidebarOpen(prev => !prev)} />
+                <main className="main-content-scroll">
                     <Outlet />
                 </main>
             </div>
