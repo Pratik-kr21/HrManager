@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import {
     LayoutDashboard, UserCheck, Users,
-    Calendar, TrendingUp, LogOut
+    Calendar, TrendingUp, LogOut, X
 } from 'lucide-react';
 
 const navItems = [
@@ -14,7 +14,7 @@ const navItems = [
     { path: '/analytics',  label: 'Analytics',   icon: <TrendingUp size={17} strokeWidth={1.8} /> },
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }) => {
     const { user, logout } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -22,53 +22,68 @@ const Sidebar = () => {
         ? user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
         : '?';
 
-    const handleLogout = () => { logout(); navigate('/login'); };
+    const handleLogout = () => {
+        if (onClose) onClose();
+        logout();
+        navigate('/login');
+    };
+
+    const handleNavClick = () => {
+        if (onClose) onClose();
+    };
 
     return (
-        <aside className="sidebar">
-            <div className="sidebar-logo">
-                OneClick<span>.</span>
-            </div>
-
-            <div className="sidebar-section-label">Main Menu</div>
-
-            <nav className="sidebar-nav">
-                {navItems.map(item => (
-                    <NavLink
-                        key={item.path}
-                        to={item.path}
-                        end={item.end}
-                        className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}
-                    >
-                        {item.icon}
-                        <span>{item.label}</span>
-                    </NavLink>
-                ))}
-            </nav>
-
-            <div className="sidebar-footer">
-                <div className="sidebar-user">
-                    <div className="sidebar-avatar">{initials}</div>
-                    <div style={{ flex:1, overflow:'hidden' }}>
-                        <div style={{ fontSize:'0.82rem', fontWeight:600, color:'rgba(255,255,255,0.9)', whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>
-                            {user?.name}
-                        </div>
-                        <div style={{ fontSize:'0.7rem', color:'rgba(255,255,255,0.4)', textTransform:'capitalize' }}>
-                            {user?.role}
-                        </div>
-                    </div>
-                    <button
-                        onClick={handleLogout}
-                        title="Sign out"
-                        style={{ background:'none', border:'none', cursor:'pointer', padding:'5px', borderRadius:'6px', display:'flex', alignItems:'center', color:'rgba(255,255,255,0.35)', transition:'color 0.2s' }}
-                        onMouseEnter={e => e.currentTarget.style.color = '#FCA5A5'}
-                        onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.35)'}
-                    >
-                        <LogOut size={15} />
+        <>
+            {isOpen && <div className="sidebar-overlay" onClick={onClose} />}
+            <aside className={`sidebar${isOpen ? ' open' : ''}`}>
+                <div className="sidebar-logo">
+                    <div>OneClick<span>.</span></div>
+                    <button className="sidebar-close-btn" onClick={onClose} title="Close menu" aria-label="Close sidebar">
+                        <X size={18} />
                     </button>
                 </div>
-            </div>
-        </aside>
+
+                <div className="sidebar-section-label">Main Menu</div>
+
+                <nav className="sidebar-nav">
+                    {navItems.map(item => (
+                        <NavLink
+                            key={item.path}
+                            to={item.path}
+                            end={item.end}
+                            className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}
+                            onClick={handleNavClick}
+                        >
+                            {item.icon}
+                            <span>{item.label}</span>
+                        </NavLink>
+                    ))}
+                </nav>
+
+                <div className="sidebar-footer">
+                    <div className="sidebar-user">
+                        <div className="sidebar-avatar">{initials}</div>
+                        <div style={{ flex: 1, overflow: 'hidden' }}>
+                            <div style={{ fontSize: '0.82rem', fontWeight: 600, color: 'rgba(255,255,255,0.9)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                {user?.name}
+                            </div>
+                            <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', textTransform: 'capitalize' }}>
+                                {user?.role}
+                            </div>
+                        </div>
+                        <button
+                            onClick={handleLogout}
+                            title="Sign out"
+                            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '5px', borderRadius: '6px', display: 'flex', alignItems: 'center', color: 'rgba(255,255,255,0.35)', transition: 'color 0.2s' }}
+                            onMouseEnter={e => e.currentTarget.style.color = '#FCA5A5'}
+                            onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.35)'}
+                        >
+                            <LogOut size={15} />
+                        </button>
+                    </div>
+                </div>
+            </aside>
+        </>
     );
 };
 
