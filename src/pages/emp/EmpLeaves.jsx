@@ -71,7 +71,7 @@ const EmpLeaves = () => {
                 </div>
             )}
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <div className="page-header-row">
                 <div>
                     <h2 className="page-title">My Leaves</h2>
                     <p className="page-subtitle">Manage your leave requests</p>
@@ -86,7 +86,7 @@ const EmpLeaves = () => {
             )}
 
             {/* Stats */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '14px' }}>
+            <div className="grid-kpi-4">
                 {[
                     { label: 'Pending',       value: stats.pending,  color: 'var(--amber)',   bg: '#FEF3C7' },
                     { label: 'Approved',      value: stats.approved, color: 'var(--success)', bg: '#D1FAE5' },
@@ -104,9 +104,9 @@ const EmpLeaves = () => {
             </div>
 
             {/* Filter */}
-            <div style={{ display: 'flex', gap: '6px' }}>
+            <div className="scroll-tabs">
                 {['All', 'Pending', 'Approved', 'Rejected'].map(f => (
-                    <button key={f} onClick={() => setFilter(f)} style={{ padding: '7px 16px', borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 600, background: filter === f ? 'var(--forest)' : 'var(--stone-100)', color: filter === f ? '#fff' : 'var(--text-muted)' }}>
+                    <button key={f} onClick={() => setFilter(f)} style={{ padding: '7px 16px', borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 600, background: filter === f ? 'var(--forest)' : 'var(--stone-100)', color: filter === f ? '#fff' : 'var(--text-muted)', whiteSpace: 'nowrap' }}>
                         {f}
                     </button>
                 ))}
@@ -121,7 +121,7 @@ const EmpLeaves = () => {
                     No {filter !== 'All' ? filter.toLowerCase() : ''} leave requests
                 </div>
             ) : (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '14px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '14px' }}>
                     {filtered.map(l => {
                         const days = daysDiff(l.from, l.to);
                         return (
@@ -167,7 +167,7 @@ const EmpLeaves = () => {
                                     {LEAVE_TYPES.map(t => <option key={t} value={t}>{t} Leave</option>)}
                                 </select>
                             </div>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                            <div className="grid-modal-2">
                                 <div>
                                     <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: 'var(--stone-700)', marginBottom: '5px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>From</label>
                                     <input type="date" required className="input" value={form.from} onChange={e => setForm({ ...form, from: e.target.value })} min={new Date().toISOString().slice(0, 10)} />
