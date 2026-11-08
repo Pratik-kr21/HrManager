@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { format } from 'date-fns';
+import { format } from '../utils/date';
 import api from '../utils/api';
 import {
     Play, Square, Users, UserCheck, UserX,
@@ -139,7 +139,7 @@ const Overview = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
 
             {/* ── Row 1: KPI Cards (4-up, full width) ──────────────────── */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+            <div className="grid-kpi-4">
                 {[
                     { label: 'Total Employees',  value: stats.total,   icon: <Users size={20}/>,     color: '#1B4332', bg: '#D1FAE5' },
                     { label: 'Active Today',      value: stats.present, icon: <UserCheck size={20}/>, color: '#D97706', bg: '#FEF3C7' },
@@ -163,7 +163,7 @@ const Overview = () => {
             </div>
 
             {/* ── Row 2: Session Tracker + This Week ───────────────────── */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+            <div className="grid-split-2">
 
                 {/* Session Tracker */}
                 <div className="card" style={{ padding: '24px' }}>
@@ -179,7 +179,7 @@ const Overview = () => {
                         </span>
                     </div>
 
-                    <div style={{ fontSize: '3.5rem', fontWeight: 800, letterSpacing: '-0.05em', fontVariantNumeric: 'tabular-nums', color: sessionActive ? 'var(--forest)' : 'var(--charcoal)', lineHeight: 1, marginBottom: '20px' }}>
+                    <div style={{ fontSize: 'clamp(2.2rem, 7vw, 3.5rem)', fontWeight: 800, letterSpacing: '-0.05em', fontVariantNumeric: 'tabular-nums', color: sessionActive ? 'var(--forest)' : 'var(--charcoal)', lineHeight: 1, marginBottom: '20px' }}>
                         {fmtTime(secs)}
                     </div>
 
@@ -215,19 +215,19 @@ const Overview = () => {
                             {loading ? 'Loading…' : 'Link your account to an employee profile to see weekly data.'}
                         </div>
                     ) : (
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '8px' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '6px' }}>
                             {weekDays.map(d => {
                                 const { bg, color } = dayStatusStyle(d.status);
                                 return (
-                                    <div key={d.date} style={{ textAlign: 'center', padding: '10px 4px', borderRadius: 'var(--r-md)', background: d.isToday ? 'var(--forest)' : bg, border: d.isToday ? 'none' : '1px solid var(--stone-200)', transition: 'var(--t)' }}>
-                                        <div style={{ fontSize: '0.68rem', fontWeight: 700, color: d.isToday ? 'rgba(255,255,255,0.6)' : 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
+                                    <div key={d.date} style={{ textAlign: 'center', padding: '10px 2px', borderRadius: 'var(--r-md)', background: d.isToday ? 'var(--forest)' : bg, border: d.isToday ? 'none' : '1px solid var(--stone-200)', transition: 'var(--t)' }}>
+                                        <div style={{ fontSize: '0.66rem', fontWeight: 700, color: d.isToday ? 'rgba(255,255,255,0.6)' : 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
                                             {d.day}
                                         </div>
-                                        <div style={{ fontSize: '0.7rem', fontWeight: 700, color: d.isToday ? '#fff' : color }}>
+                                        <div style={{ fontSize: '0.68rem', fontWeight: 700, color: d.isToday ? '#fff' : color }}>
                                             {d.isFuture ? '—' : d.status === 'No Record' ? 'None' : d.status}
                                         </div>
                                         {d.hoursWorked > 0 && (
-                                            <div style={{ fontSize: '0.65rem', color: d.isToday ? 'rgba(255,255,255,0.5)' : 'var(--text-muted)', marginTop: '3px' }}>
+                                            <div style={{ fontSize: '0.62rem', color: d.isToday ? 'rgba(255,255,255,0.5)' : 'var(--text-muted)', marginTop: '3px' }}>
                                                 {d.hoursWorked}h
                                             </div>
                                         )}
@@ -255,7 +255,7 @@ const Overview = () => {
             </div>
 
             {/* ── Row 3: Department Health + Recent Leave Requests ─────── */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: '16px' }}>
+            <div className="grid-split-uneven">
 
                 {/* Department Health */}
                 <div className="card" style={{ padding: '24px' }}>
@@ -323,7 +323,7 @@ const Overview = () => {
             </div>
 
             {/* ── Row 4: Quick Stats Strip ──────────────────────────────── */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+            <div className="grid-kpi-3">
                 {[
                     {
                         label: 'Attendance Rate',
