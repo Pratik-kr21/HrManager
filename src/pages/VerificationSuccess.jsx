@@ -28,7 +28,7 @@ const VerificationSuccess = () => {
         <div style={{ display:'flex', minHeight:'100vh' }}>
             <div style={{ width:'6px', background:'var(--forest)', flexShrink:0 }} />
 
-            <div className="flex-center" style={{ flex:1, background:'var(--cream)', padding:'40px' }}>
+            <div className="flex-center" style={{ flex:1, background:'var(--cream)', padding:'32px 18px' }}>
                 <div style={{ width:'100%', maxWidth:'420px', textAlign:'center' }}>
                     <div style={{ width:'72px', height:'72px', borderRadius:'50%', background:'#D1FAE5', display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 24px' }}>
                         <CheckCircle size={36} color="var(--forest)" />
