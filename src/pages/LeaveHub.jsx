@@ -90,7 +90,7 @@ const LeaveHub = () => {
             )}
 
             {/* Header */}
-            <div className="flex-between">
+            <div className="page-header-row">
                 <div>
                     <h2 className="page-title">Leave Hub</h2>
                     <p className="page-subtitle">Manage and track all leave requests</p>
@@ -101,7 +101,7 @@ const LeaveHub = () => {
             </div>
 
             {/* Quick Stats */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px' }}>
+            <div className="grid-kpi-3">
                 {[
                     { label: 'Pending Review', value: stats.pending,  icon: <Clock size={18}/>,        color: 'var(--amber)',   bg: 'var(--amber-pale)' },
                     { label: 'Approved',        value: stats.approved, icon: <Check size={18}/>,        color: 'var(--success)', bg: 'var(--success-bg)' },
@@ -120,7 +120,7 @@ const LeaveHub = () => {
             </div>
 
             {/* Filter Tabs */}
-            <div style={{ display: 'flex', gap: '6px' }}>
+            <div className="scroll-tabs">
                 {['All', 'Pending', 'Approved', 'Rejected'].map(f => (
                     <button
                         key={f}
@@ -129,7 +129,8 @@ const LeaveHub = () => {
                             padding: '7px 16px', borderRadius: 'var(--r-full)', border: 'none',
                             fontSize: '0.82rem', fontWeight: 600, cursor: 'pointer', transition: 'var(--t)',
                             background: filter === f ? 'var(--forest)' : 'var(--stone-100)',
-                            color: filter === f ? '#fff' : 'var(--text-muted)'
+                            color: filter === f ? '#fff' : 'var(--text-muted)',
+                            whiteSpace: 'nowrap'
                         }}
                     >
                         {f}
@@ -239,7 +240,7 @@ const LeaveHub = () => {
                                     {LEAVE_TYPES.map(t => <option key={t} value={t}>{t} Leave</option>)}
                                 </select>
                             </div>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                            <div className="grid-modal-2">
                                 <div>
                                     <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: 'var(--stone-700)', marginBottom: '5px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>From</label>
                                     <input type="date" required className="input" value={formData.from} onChange={e => setFormData({ ...formData, from: e.target.value })} min={new Date().toISOString().slice(0,10)} />
