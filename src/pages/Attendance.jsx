@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import api from '../utils/api';
 import { Download, ChevronDown, ChevronUp, RefreshCw } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
-import { format } from 'date-fns';
+import { format } from '../utils/date';
 
 const Attendance = () => {
     const { user } = useContext(AuthContext);
@@ -67,12 +67,12 @@ const Attendance = () => {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
             {/* Header */}
-            <div className="flex-between">
+            <div className="page-header-row">
                 <div>
                     <h2 className="page-title">Attendance Records</h2>
                     <p className="page-subtitle">Complete attendance history for your team</p>
                 </div>
-                <div style={{ display: 'flex', gap: '10px' }}>
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                     <button onClick={fetchAttendance} className="btn btn-secondary" title="Refresh">
                         <RefreshCw size={15} />
                     </button>
@@ -83,7 +83,7 @@ const Attendance = () => {
             </div>
 
             {/* Summary Strip */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px' }}>
+            <div className="grid-kpi-3">
                 {[
                     { label: 'Total Present Days', value: totalPresent, color: 'var(--forest)',  bg: '#D1FAE5' },
                     { label: 'Total Absent Days',  value: totalAbsent,  color: 'var(--danger)',  bg: 'var(--danger-bg)' },
@@ -162,7 +162,7 @@ const Attendance = () => {
                                                 <td colSpan={7} style={{ padding: 0, border: 'none' }}>
                                                     <div style={{ background: 'var(--surface-raised)', padding: '16px 20px', borderBottom: '1px solid var(--stone-200)' }}>
                                                         <p style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '12px' }}>Day-by-Day Breakdown</p>
-                                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: '8px' }}>
+                                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '8px' }}>
                                                             {row.records.sort((a, b) => new Date(b.date) - new Date(a.date)).map(rec => (
                                                                 <div key={rec._id} style={{ background: '#fff', border: '1px solid var(--stone-200)', padding: '10px 12px', borderRadius: 'var(--r-md)', fontSize: '0.82rem' }}>
                                                                     <div style={{ fontWeight: 600, color: 'var(--charcoal)', marginBottom: '4px' }}>
