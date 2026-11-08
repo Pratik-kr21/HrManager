@@ -62,7 +62,7 @@ const Analytics = () => {
             </div>
 
             {/* Summary KPIs */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '14px' }}>
+            <div className="grid-kpi-4">
                 {summaryCards.map(c => (
                     <div key={c.label} className="card" style={{ padding: '20px', display: 'flex', alignItems: 'center', gap: '14px' }}>
                         <div style={{ width: '44px', height: '44px', borderRadius: 'var(--r-md)', background: c.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', color: c.color, flexShrink: 0 }}>
@@ -77,9 +77,9 @@ const Analytics = () => {
             </div>
 
             {/* Charts Row 1 */}
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '18px' }}>
+            <div className="grid-split-charts">
                 {/* Weekly Attendance Trend */}
-                <div className="card" style={{ padding: '24px' }}>
+                <div className="card" style={{ padding: '24px', minWidth: 0 }}>
                     <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--charcoal)', marginBottom: '20px' }}>Weekly Attendance Trend</h3>
                     {weeklyTrend?.length ? (
                         <ResponsiveContainer width="100%" height={240}>
@@ -98,7 +98,7 @@ const Analytics = () => {
                 </div>
 
                 {/* Leave Type Distribution */}
-                <div className="card" style={{ padding: '24px' }}>
+                <div className="card" style={{ padding: '24px', minWidth: 0 }}>
                     <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--charcoal)', marginBottom: '20px' }}>Leave Distribution</h3>
                     {leaveByType?.length ? (
                         <>
