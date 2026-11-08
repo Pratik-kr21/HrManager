@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { format } from 'date-fns';
+import { format } from '../../utils/date';
 import api from '../../utils/api';
 import { Download, RefreshCw, ChevronDown, ChevronUp } from 'lucide-react';
 
@@ -57,19 +57,19 @@ const EmpAttendance = () => {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <div className="page-header-row">
                 <div>
                     <h2 className="page-title">My Attendance</h2>
                     <p className="page-subtitle">Your complete attendance history</p>
                 </div>
-                <div style={{ display: 'flex', gap: '10px' }}>
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                     <button onClick={fetchData} className="btn btn-secondary"><RefreshCw size={14} /></button>
                     <button onClick={downloadCSV} className="btn btn-secondary" disabled={records.length === 0}><Download size={14} /> Export</button>
                 </div>
             </div>
 
             {/* Summary */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '14px' }}>
+            <div className="grid-kpi-4">
                 {[
                     { label: 'Present', value: totalPresent,            color: 'var(--forest)', bg: '#D1FAE5' },
                     { label: 'Late',    value: totalLate,               color: 'var(--amber)',  bg: '#FEF3C7' },
@@ -95,9 +95,9 @@ const EmpAttendance = () => {
                 </div>
             ) : Object.entries(grouped).map(([month, recs]) => (
                 <div key={month} className="card" style={{ overflow: 'hidden' }}>
-                    <div style={{ padding: '14px 20px', background: 'var(--surface-raised)', borderBottom: '1px solid var(--stone-200)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div style={{ padding: '14px 20px', background: 'var(--surface-raised)', borderBottom: '1px solid var(--stone-200)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
                         <span style={{ fontWeight: 700, fontSize: '0.88rem', color: 'var(--charcoal)' }}>{month}</span>
-                        <div style={{ display: 'flex', gap: '8px' }}>
+                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                             {['Present', 'Late', 'Absent'].map(s => {
                                 const cnt = recs.filter(r => r.status === s).length;
                                 if (!cnt) return null;
@@ -106,7 +106,7 @@ const EmpAttendance = () => {
                             })}
                         </div>
                     </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '12px', padding: '16px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: '12px', padding: '16px' }}>
                         {recs.map(r => (
                             <div key={r._id} style={{ padding: '14px', background: 'var(--surface-raised)', border: '1px solid var(--stone-200)', borderRadius: 'var(--r-md)', borderLeft: `3px solid ${statusColor(r.status)}` }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
