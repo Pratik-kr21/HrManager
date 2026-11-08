@@ -97,7 +97,7 @@ const TeamDirectory = () => {
             )}
 
             {/* Header */}
-            <div className="flex-between">
+            <div className="page-header-row">
                 <div>
                     <h2 className="page-title">Team Directory</h2>
                     <p className="page-subtitle">{employees.length} team member{employees.length !== 1 ? 's' : ''}</p>
@@ -107,7 +107,7 @@ const TeamDirectory = () => {
 
             {/* Search + Dept Filter */}
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
-                <div style={{ position: 'relative', flex: 1, minWidth: '200px' }}>
+                <div style={{ position: 'relative', flex: '1 1 200px', minWidth: '180px' }}>
                     <Search size={15} style={{ position: 'absolute', left: '13px', top: '50%', transform: 'translateY(-50%)', color: 'var(--stone-500)', pointerEvents: 'none' }} />
                     <input
                         type="text" placeholder="Search by name, role, email…" className="input"
@@ -115,10 +115,10 @@ const TeamDirectory = () => {
                         onChange={e => setSearch(e.target.value)}
                     />
                 </div>
-                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                <div className="scroll-tabs">
                     {departments.map(d => (
                         <button key={d} onClick={() => setDeptFilter(d)}
-                            style={{ padding: '7px 14px', borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600, transition: 'var(--t)', background: deptFilter === d ? 'var(--forest)' : 'var(--stone-100)', color: deptFilter === d ? '#fff' : 'var(--text-muted)' }}>
+                            style={{ padding: '7px 14px', borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600, transition: 'var(--t)', background: deptFilter === d ? 'var(--forest)' : 'var(--stone-100)', color: deptFilter === d ? '#fff' : 'var(--text-muted)', whiteSpace: 'nowrap' }}>
                             {d}
                         </button>
                     ))}
@@ -210,7 +210,7 @@ const TeamDirectory = () => {
                                     <input type={f.type} className="input" placeholder={f.placeholder} required value={formData[f.key]} onChange={e => setFormData({ ...formData, [f.key]: e.target.value })} />
                                 </div>
                             ))}
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                            <div className="grid-modal-2">
                                 <div>
                                     <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: 'var(--stone-700)', marginBottom: '5px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Department</label>
                                     <select className="input" value={formData.department} onChange={e => setFormData({ ...formData, department: e.target.value })} style={{ appearance: 'auto' }}>
